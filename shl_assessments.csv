@@ -1,0 +1,11 @@
+Name,URL,Remote,Adaptive,Duration,Test Type,Description
+Numerical Reasoning Test,https://www.shl.com/numerical-reasoning,Yes,Yes,30,Cognitive Ability,Assesses ability to work with numbers, charts, and graphs.
+Verbal Reasoning Test,https://www.shl.com/verbal-reasoning,Yes,No,25,Cognitive Ability,Evaluates reading comprehension and critical thinking skills.
+Personality Questionnaire,https://www.shl.com/personality-test,Yes,Yes,20,Personality,Measures behavioral preferences and personality traits.
+Coding Simulation - Python,https://www.shl.com/python-coding,Yes,No,45,Technical Skills,Assesses hands-on Python coding skills in simulated environment.
+Situational Judgment Test,https://www.shl.com/sjt,Yes,No,20,Behavioral,Evaluates workplace decision-making and judgment skills.
+Inductive Reasoning Test,https://www.shl.com/inductive-reasoning,Yes,Yes,30,Cognitive Ability,Tests logical thinking based on patterns and sequences.
+Customer Service Simulation,https://www.shl.com/customer-service,Yes,No,35,Simulation,Simulates customer service scenarios to assess responsiveness.
+Leadership Judgment Indicator,https://www.shl.com/leadership,Yes,No,40,Personality,Assesses decision-making in leadership situations.
+Coding Simulation - JavaScript,https://www.shl.com/js-coding,Yes,No,40,Technical Skills,Evaluates JavaScript coding proficiency in real-time.
+Numerical Data Interpretation,https://www.shl.com/data-interpretation,Yes,Yes,30,Cognitive Ability,Tests ability to interpret tables, trends, and graphs.
