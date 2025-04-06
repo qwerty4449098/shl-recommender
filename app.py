@@ -10,13 +10,13 @@ df = pd.read_csv("shl_assessments.csv")
 df["text_for_embedding"] = df["Name"] + " " + df["Description"] + " " + df["Test Type"]
 
 # Load embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("models/all-MiniLM-L6-v2")
 
-# Embed all catalog entries
+# Pre-compute catalog embeddings
 catalog_embeddings = model.encode(df["text_for_embedding"].tolist(), convert_to_tensor=True)
 
+# Streamlit UI
 st.title("🔍 SHL Assessment Recommendation Engine")
-
 query = st.text_area("Paste a job description or type your hiring needs here:")
 
 if st.button("Get Recommendations"):
@@ -27,22 +27,36 @@ if st.button("Get Recommendations"):
             [query_embedding.cpu().numpy()], catalog_embeddings.cpu().numpy()
         )[0]
 
-        top_indices = similarities.argsort()[-10:][::-1]
+        top_indices = similarities.argsort()[-5:][::-1]
 
         results = df.iloc[top_indices].copy()
         results["Similarity Score"] = similarities[top_indices].round(2)
 
-        def make_clickable(link, name):
-            return f"[{name}]({link})"
+        # Make Assessment column clickable
+        results["Assessment"] = results.apply(
+            lambda x: f"[{x['Name']}]({x['URL']})", axis=1
+        )
 
-        results["Assessment"] = results.apply(lambda x: make_clickable(x["URL"], x["Name"]), axis=1)
+        # Rename columns
+        results.rename(columns={
+            "Remote": "Remote Support",
+            "Adaptive": "Adaptive Support",
+            "Duration": "Duration (min)",
+            "Test Type": "Test Category"
+        }, inplace=True)
+
+        # Reorder columns
+        results = results[[
+            "Assessment",
+            "Remote Support",
+            "Adaptive Support",
+            "Duration (min)",
+            "Test Category",
+            "Similarity Score"
+        ]]
 
         st.markdown("### ✅ Top Recommendations:")
-        st.write(
-            results[["Assessment", "Remote", "Adaptive", "Duration", "Test Type", "Similarity Score"]]
-            .reset_index(drop=True)
-            .to_markdown(index=False),
-            unsafe_allow_html=True
-        )
+        st.markdown(results.to_markdown(index=False), unsafe_allow_html=True)
+
     else:
         st.warning("Please enter a query or job description first.")
