@@ -9,10 +9,8 @@ df = pd.read_csv("shl_assessments.csv")
 # Combine fields for embedding
 df["text_for_embedding"] = df["Name"] + " " + df["Description"] + " " + df["Test Type"]
 
-# Load embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-
+# ✅ Correct model path for Streamlit Cloud
+model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 # Pre-compute catalog embeddings
 catalog_embeddings = model.encode(df["text_for_embedding"].tolist(), convert_to_tensor=True)
