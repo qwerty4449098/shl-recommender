@@ -10,7 +10,8 @@ df = pd.read_csv("shl_assessments.csv")
 df["text_for_embedding"] = df["Name"] + " " + df["Description"] + " " + df["Test Type"]
 
 # Load embedding model
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
 
 
 # Pre-compute catalog embeddings
